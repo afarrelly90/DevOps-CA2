@@ -1,2 +1,2 @@
 import pytest
-from calculator import add, subtract, multiply, divide
+from app.calculator import add, subtract, multiply, divide
