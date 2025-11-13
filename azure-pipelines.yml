@@ -21,9 +21,9 @@ steps:
     displayName: "Run Pylint"
 
   - script: | # set PYTHONPATH to include source directory and run pytest
-      export PYTHONPATH=$PYTHONPATH:$(Build.SourcesDirectory) 
-      pytest --junitxml=python-test-results.xml
-    displayName: "Run tests"
+      export PYTHONPATH=$PYTHONPATH:$(Build.SourcesDirectory)
+      pytest --junitxml=python-test-results.xml --cov=app --cov-report=xml
+    displayName: "Run tests with coverage"
 
   - task: PublishTestResults@2 # publish test results
     inputs:
@@ -32,3 +32,12 @@ steps:
       testRunTitle: "Python testing"
     condition: succeededOrFailed()
     displayName: "Publish test results"
+
+  - task: PublishCodeCoverageResults@2 #publish code coverage results
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "coverage.xml"
+      reportDirectory: "$(System.DefaultWorkingDirectory)"
+      failIfCoverageEmpty: true
+    displayName: "Publish code coverage report"
+
