@@ -1,7 +1,13 @@
+pr:
+  branches:
+    include:
+      - main
+      - development
 trigger:
   branches:
     include:
-      - development #only run on development branch
+      - development
+      - main
 
 pool:
   vmImage: "ubuntu-latest"
